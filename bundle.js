@@ -61,6 +61,11 @@
 
 	_pixi.loader.add(LOGO_URL).load(function () {
 	  var logo = new _pixi.Sprite(_pixi.loader.resources[LOGO_URL].texture);
+
+	  // Center image
+	  logo.x = (app.renderer.width - logo.width) / 2;
+	  logo.y = (app.renderer.height - logo.height) / 2;
+
 	  app.stage.addChild(logo);
 	});
 
