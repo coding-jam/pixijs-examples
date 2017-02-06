@@ -3,7 +3,8 @@ const ghpages = require('gh-pages')
 const options = {
   src: [
     'index.html',
-    'bundle.js'
+    'bundle.js',
+    'logo.png'
   ]
 }
 
