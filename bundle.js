@@ -56,6 +56,14 @@
 	app.renderer.resize(window.innerWidth, window.innerHeight);
 	document.body.appendChild(app.view);
 
+	// Loading data
+	var LOGO_URL = 'logo.png';
+
+	_pixi.loader.add(LOGO_URL).load(function () {
+	  var logo = new _pixi.Sprite(_pixi.loader.resources[LOGO_URL].texture);
+	  app.stage.addChild(logo);
+	});
+
 /***/ },
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
