@@ -52,7 +52,7 @@
 	var app = new _pixi.Application(window.innerWidth, window.innerHeight, { backgroundColor: 0x323B44 });
 
 	var count = 0;
-	var filter = new _pixi.filters.ColorMatrixFilter();
+	var shouldRotate = false;
 
 	// Fullscreen
 	app.renderer.autoResize = true;
@@ -68,22 +68,24 @@
 	  // Center image
 	  logo.x = (app.renderer.width - logo.width) / 2;
 	  logo.y = (app.renderer.height - logo.height) / 2;
-	  logo.filters = [filter];
+
+	  logo.interactive = true;
+	  logo.on('click', function () {
+	    shouldRotate = !shouldRotate;
+	  });
+
+	  logo.filters = [new _pixi.filters.ColorMatrixFilter()];
+
+	  app.ticker.add(function (delta) {
+	    if (shouldRotate) {
+	      logo.rotation -= 0.01 * delta;
+	    }
+
+	    count += 0.01;
+	    logo.filters[0].greyscale(Math.abs(Math.sin(count)), false);
+	  });
 
 	  app.stage.addChild(logo);
-	});
-
-	app.ticker.add(function (delta) {
-	  count += 0.1;
-
-	  var matrix = filter.matrix;
-
-	  matrix[1] = Math.sin(count);
-	  matrix[2] = Math.cos(count);
-	  matrix[3] = Math.cos(count) * 1.5;
-	  matrix[4] = Math.sin(count / 3) * 2;
-	  matrix[5] = Math.sin(count / 2);
-	  matrix[6] = Math.sin(count / 4);
 	});
 
 /***/ },
